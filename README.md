@@ -20,5 +20,6 @@ node index.js
 
 ## contributors
 @minmin0530  
-@bereu
-@tomsyoya
+@tomsyoya  
+@mar0519  
+@bereu  
