@@ -20,3 +20,4 @@ node index.js
 
 ## contributors
 @minmin0530  
+@bereu
