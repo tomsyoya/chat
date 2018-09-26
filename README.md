@@ -7,7 +7,7 @@
 git clone https://github.com/minmin0530/chat.git
 cd chat
 ```
-  
+
 ### setup
 ```
 npm install
@@ -23,3 +23,4 @@ node index.js
 @tomsyoya  
 @mar0519  
 @bereu  
+@yoshitaku-jp
