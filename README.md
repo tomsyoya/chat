@@ -6,4 +6,4 @@ cd chat`
 ## setup
 `npm install`  
 ## run
-`npm index.js`
+`node index.js`
