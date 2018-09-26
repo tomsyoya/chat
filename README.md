@@ -19,4 +19,5 @@ node index.js
 ```
 
 ## contributors
-@minmin0530  @mar0519
+@minmin0530  @mar0519  
+@bereu  
