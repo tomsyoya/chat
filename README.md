@@ -24,3 +24,4 @@ node index.js
 @mar0519  
 @bereu  
 @yoshitaku-jp
+@hashikuchi
