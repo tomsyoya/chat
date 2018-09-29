@@ -25,3 +25,4 @@ node index.js
 - @bereu
 - @yoshitaku-jp
 - @hashikuchi
+- @takkyun
