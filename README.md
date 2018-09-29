@@ -19,9 +19,9 @@ node index.js
 ```
 
 ## contributors
-@minmin0530  
-@tomsyoya  
-@mar0519  
-@bereu  
-@yoshitaku-jp  
-@hashikuchi
+- @minmin0530
+- @tomsyoya
+- @mar0519
+- @bereu
+- @yoshitaku-jp
+- @hashikuchi
