@@ -3,18 +3,18 @@
 
 ## develop
 ### clone
-```
+```sh
 git clone https://github.com/minmin0530/chat.git
 cd chat
 ```
 
 ### setup
-```
+```sh
 npm install
 ```
 
 ### run
-```
+```sh
 node index.js
 ```
 
