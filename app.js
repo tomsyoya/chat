@@ -6,7 +6,7 @@ var server = http.createServer(function(req, res){
 	res.writeHead(200, {"Content-Type":"text/html"})
 	var out = fs.readFileSync("./index.html", "utf-8")
 	res.end(out)
-})
+}).listen(8080)
 
 var io = require("socket.io").listen(server)
 
@@ -18,11 +18,11 @@ io.sockets.on("connection", function(socket){
 	socket.on("connected", function(name){
 		var msg = name + "が入室しました"
 		userHash[socket.id] = name
-		io.socket.emit("publish", {value: msg})
+		io.sockets.emit("publish", {value: msg})
 	})
 
 	socket.on("publish", function(data){
-		io.socket.emit("publish", {value: data.value})
+		io.sockets.emit("publish", {value: data.value})
 	})
 
 	//接続元ユーザーを削除、退室したことを他ユーザーへ通知
@@ -30,7 +30,7 @@ io.sockets.on("connection", function(socket){
 		if(userHash[socket.id]){
 			var msg = userHash[socket.id] + "が退出しました"
 			delete userHash[socket.id]
-			io.socket.emit("publish", {value: msg})
+			io.sockets.emit("publish", {value: msg})
 		}
 	})
 })
