@@ -1,5 +1,5 @@
 # chat
-・Node.jsを使ってチャットアプリを作成します。  
+- Node.jsを使ってチャットアプリを作成します。  
 
 ## develop
 ### clone
