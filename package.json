@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/minmin0530/chat/issues"
   },
-  "homepage": "https://github.com/minmin0530/chat#readme"
+  "homepage": "https://github.com/minmin0530/chat#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
 }
