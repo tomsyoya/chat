@@ -3,6 +3,10 @@ const express = require('express');
 const app = express();
 const port = 8080;
 
+const MongoClient = require('mongodb').MongoClient;
+const url = 'mongodb://localhost:27017';
+const client = new MongoClient(url);
+
 app.get('/chat', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
@@ -39,5 +43,14 @@ io.sockets.on("connection", (socket) => {
 		}
 	})
 })
+
+client.connect(err => {
+	if (err) {
+		console.log(err);
+	} else {
+		console.log('DB connection established');
+	}
+	client.close(); // 今はDB疎通確認のみ。
+});
 
 console.log('Server running at http://127.0.0.1:8080/');
