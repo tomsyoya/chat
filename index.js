@@ -15,6 +15,58 @@ app.get('/login', (req, res) => {
   res.send('<h1>login</h1><a href="chat">chatへのリンク</a>');
 });
 
+app.post('/register', function(req, res,next){
+  var name = req.body.name;
+  var password = req.body.password;
+
+  var MongoClient = require("mongodb").MongoClient;
+
+  // 接続文字列
+  var url = "mongodb://localhost:27017/sampledb";
+
+  // MongoDB へ 接続
+  MongoClient.connect(url, (error, db) => {
+    var collection;
+
+    // コレクションの取得
+    collection = db.collection("products");
+
+    // コレクションにドキュメントを挿入
+    collection.insertOne({
+        "name": name,
+        "password": password
+    }, (error, result) => {
+        db.close();
+    });
+  });
+});
+app.post('/login', function(req, res,next){
+  var name = req.body.name;
+  var password = req.body.password;
+
+  var MongoClient = require("mongodb").MongoClient;
+
+  // 接続文字列
+  var url = "mongodb://localhost:27017/sampledb";
+
+  // MongoDB へ 接続
+  MongoClient.connect(url, (error, db) => {
+    var collection;
+
+    // コレクションの取得
+    collection = db.collection("products");
+
+    // コレクション中で条件に合致するドキュメントを取得
+    collection.find({name: name,pasword: pasword}).toArray((error, documents)=>{
+        for (var document of documents) {
+            console.log(document.name);
+        }
+    });
+
+  });
+});
+
+
 const server = http.createServer(app).listen(port);
 
 const io = require("socket.io").listen(server)
