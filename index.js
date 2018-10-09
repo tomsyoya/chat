@@ -1,5 +1,6 @@
 const http = require('http');
 const express = require('express');
+const bodyParser = require('body-parser');
 const app = express();
 const port = 8080;
 
@@ -12,58 +13,72 @@ app.get('/chat', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  res.send('<h1>login</h1><a href="chat">chatへのリンク</a>');
+  res.sendFile(__dirname + '/login.html');
 });
 
+app.get('/register', (req, res) => {
+  res.sendFile(__dirname + '/register.html');
+});
+
+app.use(bodyParser());
 app.post('/register', function(req, res,next){
+
   var name = req.body.name;
   var password = req.body.password;
 
-  var MongoClient = require("mongodb").MongoClient;
-
-  // 接続文字列
-  var url = "mongodb://localhost:27017/sampledb";
-
   // MongoDB へ 接続
-  MongoClient.connect(url, (error, db) => {
-    var collection;
+  MongoClient.connect(url, (error, client) => {
+
+    const db = client.db('chat');
 
     // コレクションの取得
-    collection = db.collection("products");
+    var collection = db.collection("chat");
 
     // コレクションにドキュメントを挿入
     collection.insertOne({
         "name": name,
         "password": password
     }, (error, result) => {
-        db.close();
+        console.log("ユーザの登録完了");
+        client.close();
     });
   });
+  res.sendFile(__dirname + '/index.html');
 });
+
 app.post('/login', function(req, res,next){
   var name = req.body.name;
   var password = req.body.password;
 
-  var MongoClient = require("mongodb").MongoClient;
-
-  // 接続文字列
-  var url = "mongodb://localhost:27017/sampledb";
-
   // MongoDB へ 接続
-  MongoClient.connect(url, (error, db) => {
-    var collection;
+  MongoClient.connect(url, (error, client) => {
+
+    const db = client.db('chat');
 
     // コレクションの取得
-    collection = db.collection("products");
+    var collection = db.collection("chat");
 
-    // コレクション中で条件に合致するドキュメントを取得
-    collection.find({name: name,pasword: pasword}).toArray((error, documents)=>{
-        for (var document of documents) {
-            console.log(document.name);
+    // ユーザを取得
+    collection.find({name: name,password: password}).toArray((error, documents)=>{
+      for (var document of documents) {
+          var name = document.name;
+          var userExists = name.length;
+
+          // ユーザが存在するかしないかの分岐
+          if (userExists) {
+              //ユーザが存在する
+              console.log("ユーザが存在する");
+              res.sendFile(__dirname + '/index.html');
+          } else {
+             //ユーザが存在しない
+             console.log("ユーザが存在しない");
+             res.sendFile(__dirname + '/register.html');
+          }
         }
     });
 
   });
+
 });
 
 
