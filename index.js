@@ -27,7 +27,7 @@ app.post('/register', function(req, res,next){
   var password = req.body.password;
 
   // MongoDB へ 接続
-  MongoClient.connect(url, (error, client) => {
+  client.connect(url, (error, client) => {
 
     const db = client.db('chat');
 
@@ -51,7 +51,7 @@ app.post('/login', function(req, res,next){
   var password = req.body.password;
 
   // MongoDB へ 接続
-  MongoClient.connect(url, (error, client) => {
+  client.connect(url, (error, client) => {
 
     const db = client.db('chat');
 
@@ -110,14 +110,5 @@ io.sockets.on("connection", (socket) => {
 		}
 	})
 })
-
-client.connect(err => {
-	if (err) {
-		console.log(err);
-	} else {
-		console.log('DB connection established');
-	}
-	client.close(); // 今はDB疎通確認のみ。
-});
 
 console.log('Server running at http://127.0.0.1:8080/');
