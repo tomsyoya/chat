@@ -60,6 +60,9 @@ app.post('/login', function(req, res,next){
 
     // ユーザを取得
     collection.find({name: name,password: password}).toArray((error, documents)=>{
+	  if (documents.length === 0) {
+		  res.sendFile(__dirname + '/login.html')
+	  }
       for (var document of documents) {
           var name = document.name;
           var userExists = name.length;
