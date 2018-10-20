@@ -27,7 +27,7 @@ app.post('/register', function(req, res,next){
   var password = req.body.password;
 
   // MongoDB へ 接続
-  client.connect(url, (error, client) => {
+  client.connect((error, client) => {
 
     const db = client.db('chat');
 
@@ -51,7 +51,7 @@ app.post('/login', function(req, res,next){
   var password = req.body.password;
 
   // MongoDB へ 接続
-  client.connect(url, (error, client) => {
+  client.connect((error, client) => {
 
     const db = client.db('chat');
 
