@@ -46,7 +46,7 @@ app.post('/register', function(req, res,next){
   res.sendFile(__dirname + '/index.html');
 });
 
-app.post('/login', function(req, res,next){
+app.post('/login', function(req, res, next){
   var name = req.body.name;
   var password = req.body.password;
 
@@ -61,7 +61,7 @@ app.post('/login', function(req, res,next){
     // ユーザを取得
     collection.find({name: name,password: password}).toArray((error, documents)=>{
 	  if (documents.length === 0) {
-		  res.sendFile(__dirname + '/login.html')
+		  res.redirect('/login?login_error')
 	  }
       for (var document of documents) {
           var name = document.name;

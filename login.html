@@ -2,13 +2,28 @@
 <head>
   <meta charset="UTF-8">
   <title>ログイン</title>
+  <style>
+    #login-error {
+      display: none;
+      color: #ff0000;
+    }
+  </style>
+  <script>
+    function onLoad() {
+      var url = new URL(location.href);
+      if (url.searchParams.get('login_error') !== null) {
+        document.querySelector('#login-error').style.display = 'block';
+      }
+    }
+  </script>
 </head>
-<body>
+<body onload="onLoad()">
   <form action="login" method="post">
     <input type="text" name="name">
     <input type="text" name="password">
     <button type="submit" class="submit">ログイン</button>
   </form>
+  <p id="login-error">ユーザ名またはパスワードが間違っています。</p>
   <a href="register">新規会員登録画面へ</a>
 </body>
 </html>
