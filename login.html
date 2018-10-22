@@ -8,16 +8,8 @@
       color: #ff0000;
     }
   </style>
-  <script>
-    function onLoad() {
-      var url = new URL(location.href);
-      if (url.searchParams.get('login_error') !== null) {
-        document.querySelector('#login-error').style.display = 'block';
-      }
-    }
-  </script>
 </head>
-<body onload="onLoad()">
+<body>
   <form action="login" method="post">
     <input type="text" name="name">
     <input type="text" name="password">
@@ -25,5 +17,11 @@
   </form>
   <p id="login-error">ユーザ名またはパスワードが間違っています。</p>
   <a href="register">新規会員登録画面へ</a>
+  <script>
+      var url = new URL(location.href);
+      if (url.searchParams.get('login_error') !== null) {
+        document.getElementById('login-error').style.display = 'block';
+      }
+  </script>
 </body>
 </html>
