@@ -28,3 +28,4 @@ node index.js
 - @yoshitaku-jp
 - @hashikuchi
 - @takkyun
+- @iritcho
