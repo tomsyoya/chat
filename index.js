@@ -27,7 +27,7 @@ app.post('/register', function(req, res,next){
   var password = req.body.password;
 
   // MongoDB へ 接続
-  client.connect(url, (error, client) => {
+  client.connect((error, client) => {
 
     const db = client.db('chat');
 
@@ -46,12 +46,12 @@ app.post('/register', function(req, res,next){
   res.sendFile(__dirname + '/index.html');
 });
 
-app.post('/login', function(req, res,next){
+app.post('/login', function(req, res, next){
   var name = req.body.name;
   var password = req.body.password;
 
   // MongoDB へ 接続
-  client.connect(url, (error, client) => {
+  client.connect((error, client) => {
 
     const db = client.db('chat');
 
@@ -60,6 +60,9 @@ app.post('/login', function(req, res,next){
 
     // ユーザを取得
     collection.find({name: name,password: password}).toArray((error, documents)=>{
+	  if (!documents || documents.length === 0) {
+		  res.redirect('/login?login_error')
+	  }
       for (var document of documents) {
           var name = document.name;
           var userExists = name.length;
