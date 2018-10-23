@@ -1,0 +1,17 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ルーム一覧</title>
+</head>
+<body>
+
+	<% for (let room of rooms) { %>
+	    <li><%- room.name %></li>
+	<% } %>
+
+  <form action="createRoom" method="post">
+    <input type="text" name="name">
+    <button type="submit" class="submit">チャットルームを作成する</button>
+  </form>
+</body>
+</html>
