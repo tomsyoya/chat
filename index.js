@@ -7,7 +7,7 @@ const port = 8080;
 
 const MongoClient = require('mongodb').MongoClient;
 const url = 'mongodb://localhost:27017';
-const client = new MongoClient(url);
+const client = new MongoClient(url, {useNewUrlParser: true});
 
 app.get('/chat', (req, res) => {
   res.sendFile(__dirname + '/views/index.html');
@@ -15,15 +15,26 @@ app.get('/chat', (req, res) => {
 
 app.get('/rooms', (req, res) => {
 
-  var data = {
-          rooms: [
-              {name: "<h1>リンゴ</h1>"},
-              {name: "<h2>バナナ</h2>"},
-              {name: "<h3>スイカ</h3>"}
-          ]
-      };
-  res.render("./rooms.ejs", data);
+  // MongoDB へ 接続
+  client.connect((error, client) => {
 
+    const db = client.db('chat');
+
+  // コレクションの取得
+    var collection = db.collection("rooms");
+
+    collection.find().toArray((error, rooms)=>{
+  	  if (!rooms || rooms.length === 0) {
+  		//  res.redirect('/views/login?login_error')
+  	  }else{
+        console.log(rooms)
+        var data = {
+          rooms: rooms
+        };
+        res.render("./rooms.ejs", data);
+      }
+    });
+  });
 });
 
 app.get('/login', (req, res) => {
@@ -46,7 +57,7 @@ app.post('/register', function(req, res,next){
     const db = client.db('chat');
 
     // コレクションの取得
-    var collection = db.collection("chat");
+    var collection = db.collection("user");
 
     // コレクションにドキュメントを挿入
     collection.insertOne({
@@ -97,37 +108,6 @@ app.post('/login', function(req, res, next){
   });
 
 });
-
-app.post('/rooms', function(req, res, next){
-
-  var data = {
-          rooms: [
-              {room: "<h1>リンゴ</h1>"},
-              {room: "<h2>バナナ</h2>"},
-              {room: "<h3>スイカ</h3>"}
-          ]
-      };
-  res.render("./rooms.ejs", data);
-  // MongoDB へ 接続
-  //client.connect((error, client) => {
-
-  //  const db = client.db('chat');
-
-    // コレクションの取得
-  //  var collection = db.collection("rooms");
-
-  //  collection.find().toArray((error, rooms)=>{
-  //	  if (!rooms || rooms.length === 0) {
-  		//  res.redirect('/views/login?login_error')
-  //	  }else{
-  //      res.render("./rooms.ejs", data);
-      //  res.render('/views/rooms',rooms);
-  //    }
-  //  });
-  //});
-});
-
-
 
 const server = http.createServer(app).listen(port);
 
