@@ -1,17 +1,15 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>ルーム一覧</title>
+  <title>チャットルーム一覧</title>
 </head>
 <body>
-
-	<% for (let room of rooms) { %>
-	    <li><%- room.name %></li>
-	<% } %>
-
-  <form action="createRoom" method="post">
-    <input type="text" name="name">
-    <button type="submit" class="submit">チャットルームを作成する</button>
-  </form>
+  <% if (rooms != 0) { %>
+    <% for (let room of rooms) { %>
+        <li><%- room.name %></li>
+    <% } %>
+  <% } else if (rooms == 0) { %>
+    <p>チャットルームは存在していません</p>
+  <% } %>
 </body>
 </html>
