@@ -25,14 +25,18 @@ app.get('/rooms', (req, res) => {
 
     collection.find().toArray((error, rooms)=>{
   	  if (!rooms || rooms.length === 0) {
-  		//  res.redirect('/views/login?login_error')
-  	  }else{
+        console.log(rooms)
+        var data = {
+          rooms: 0
+        };
+      }else{
         console.log(rooms)
         var data = {
           rooms: rooms
         };
-        res.render("./rooms.ejs", data);
       }
+      console.log(data)
+      res.render("./rooms.ejs", data);
     });
   });
 });
