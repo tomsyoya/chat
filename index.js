@@ -1,23 +1,52 @@
 const http = require('http');
 const express = require('express');
+const ejs  = require('ejs');
 const bodyParser = require('body-parser');
 const app = express();
 const port = 8080;
 
 const MongoClient = require('mongodb').MongoClient;
 const url = 'mongodb://localhost:27017';
-const client = new MongoClient(url);
+const client = new MongoClient(url, {useNewUrlParser: true});
 
 app.get('/chat', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/views/index.html');
+});
+
+app.get('/rooms', (req, res) => {
+
+  // MongoDB へ 接続
+  client.connect((error, client) => {
+
+    const db = client.db('chat');
+
+  // コレクションの取得
+    var collection = db.collection("rooms");
+
+    collection.find().toArray((error, rooms)=>{
+  	  if (!rooms || rooms.length === 0) {
+        console.log(rooms)
+        var data = {
+          rooms: 0
+        };
+      }else{
+        console.log(rooms)
+        var data = {
+          rooms: rooms
+        };
+      }
+      console.log(data)
+      res.render("./rooms.ejs", data);
+    });
+  });
 });
 
 app.get('/login', (req, res) => {
-  res.sendFile(__dirname + '/login.html');
+  res.sendFile(__dirname + '/views/login.html');
 });
 
 app.get('/register', (req, res) => {
-  res.sendFile(__dirname + '/register.html');
+  res.sendFile(__dirname + '/views/register.html');
 });
 
 app.use(bodyParser());
@@ -32,7 +61,7 @@ app.post('/register', function(req, res,next){
     const db = client.db('chat');
 
     // コレクションの取得
-    var collection = db.collection("chat");
+    var collection = db.collection("user");
 
     // コレクションにドキュメントを挿入
     collection.insertOne({
@@ -43,7 +72,7 @@ app.post('/register', function(req, res,next){
         client.close();
     });
   });
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/views/index.html');
 });
 
 app.post('/login', function(req, res, next){
@@ -56,12 +85,12 @@ app.post('/login', function(req, res, next){
     const db = client.db('chat');
 
     // コレクションの取得
-    var collection = db.collection("chat");
+    var collection = db.collection("users");
 
     // ユーザを取得
     collection.find({name: name,password: password}).toArray((error, documents)=>{
 	  if (!documents || documents.length === 0) {
-		  res.redirect('/login?login_error')
+		  res.redirect('/views/login?login_error')
 	  }
       for (var document of documents) {
           var name = document.name;
@@ -71,11 +100,11 @@ app.post('/login', function(req, res, next){
           if (userExists) {
               //ユーザが存在する
               console.log("ユーザが存在する");
-              res.sendFile(__dirname + '/index.html');
+              res.sendFile(__dirname + '/views/index.html');
           } else {
              //ユーザが存在しない
              console.log("ユーザが存在しない");
-             res.sendFile(__dirname + '/register.html');
+             res.sendFile(__dirname + '/views/register.html');
           }
         }
     });
@@ -83,7 +112,6 @@ app.post('/login', function(req, res, next){
   });
 
 });
-
 
 const server = http.createServer(app).listen(port);
 

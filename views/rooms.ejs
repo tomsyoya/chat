@@ -1,0 +1,15 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>チャットルーム一覧</title>
+</head>
+<body>
+  <% if (rooms != 0) { %>
+    <% for (let room of rooms) { %>
+        <li><%- room.name %></li>
+    <% } %>
+  <% } else if (rooms == 0) { %>
+    <p>チャットルームは存在していません</p>
+  <% } %>
+</body>
+</html>
