@@ -61,7 +61,7 @@ app.post('/register', function(req, res,next){
     const db = client.db('chat');
 
     // コレクションの取得
-    var collection = db.collection("user");
+    var collection = db.collection("users");
 
     // コレクションにドキュメントを挿入
     collection.insertOne({
@@ -88,7 +88,7 @@ app.post('/login', function(req, res, next){
     var collection = db.collection("users");
 
     // ユーザを取得
-    collection.find({name: name,password: password}).toArray((error, documents)=>{
+    collection.find({"name": name,"password": password}).toArray((error, documents)=>{
 	  if (!documents || documents.length === 0) {
 		  res.redirect('/views/login?login_error')
 	  }
