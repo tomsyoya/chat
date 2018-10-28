@@ -29,3 +29,4 @@ node index.js
 - @hashikuchi
 - @takkyun
 - @iritcho
+- @1000puki
