@@ -30,3 +30,4 @@ node index.js
 - @takkyun
 - @iritcho
 - @1000puki
+- @kokoakuma
