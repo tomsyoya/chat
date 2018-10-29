@@ -3,6 +3,65 @@
   <meta charset="UTF-8">
   <title>ログイン</title>
   <style>
+    body {
+      background-color: #ecedef;
+      text-align: center;
+    }
+
+    .login-container {
+      width: 378px;
+      margin: 165px auto 0;
+    }
+
+    .logo h1 {
+      font-weight: bold;
+      font-size: 55px;
+      line-height: 55px;
+      color: #808080;
+      margin: 0px 0px 56px 0px;
+    }
+
+    .input-wrapper {
+      background-color: #fff;
+      height: 36px;
+      padding: 12px 16px 0 16px;
+      border: 1px solid #e6e8ea;
+      margin-bottom: 6px;
+    }
+
+    input {
+      font-size: 18px;
+      width: 340px;
+      height: 27px;
+      padding: 0;
+      border: none;
+    }
+
+    input::placeholder {
+      color: #C0C0C0;
+    }
+
+    input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0 14px #fff inset;
+    }
+
+    .submit {
+      background-color: #b3b6c9;
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold;
+      width: 376;
+      height: 60;
+      border-color: rgba(0, 0, 0, 0.05);
+      margin-top: 13px;
+      cursor: pointer;
+    }
+
+    .register-wrapper a {
+      text-decoration: none;
+      color: #808080;
+    }
+
     #login-error {
       display: none;
       color: #ff0000;
@@ -10,13 +69,24 @@
   </style>
 </head>
 <body>
-  <form action="login" method="post">
-    <input type="text" name="name">
-    <input type="text" name="password">
-    <button type="submit" class="submit">ログイン</button>
-  </form>
-  <p id="login-error">ユーザ名またはパスワードが間違っています。</p>
-  <a href="register">新規会員登録画面へ</a>
+  <div class="login-container">
+    <div class="logo">
+      <h1>CHAT</h1>
+    </div>
+    <form action="login" method="post">
+      <div class="input-wrapper">
+        <input type="text" name="name" placeholder="ユーザ名">
+      </div>
+      <div class="input-wrapper">
+        <input type="text" name="password" placeholder="パスワード">
+      </div>
+      <button type="submit" class="submit">ログイン</button>
+    </form>
+    <p id="login-error">ユーザ名またはパスワードが間違っています。</p>
+  </div>
+  <div class="register-wrapper">
+    <a href="register">新規会員登録</a>
+  </div>
   <script>
       var url = new URL(location.href);
       if (url.searchParams.get('login_error') !== null) {
