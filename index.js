@@ -90,7 +90,7 @@ app.post('/login', function(req, res, next){
     // ユーザを取得
     collection.find({"name": name,"password": password}).toArray((error, documents)=>{
 	  if (!documents || documents.length === 0) {
-		  res.redirect('/views/login?login_error')
+		  res.redirect('/login?login_error')
 	  }
       for (var document of documents) {
           var name = document.name;
