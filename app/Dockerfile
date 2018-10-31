@@ -10,6 +10,5 @@ RUN     curl -sL https://rpm.nodesource.com/setup_8.x | bash -
 RUN     yum -y update && yum clean all
 RUN     yum install -y gcc gcc-c++ nodejs
 
-#npm installを実行
-RUN     npm install
+#8080番ポート開放
 EXPOSE  8080

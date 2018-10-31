@@ -1,7 +1,7 @@
 version: "3"
 services:
 
-  node_chat:
+  app:
     build: ./app
     volumes:
       - ./app:/usr/src/app
@@ -26,4 +26,3 @@ services:
       - 27017:27017
     command:
       - mongod
-    tty: true
