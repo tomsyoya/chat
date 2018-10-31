@@ -1,0 +1,29 @@
+version: "3"
+services:
+
+  node_chat:
+    build: ./app
+    volumes:
+      - ./app:/usr/src/app
+    environment:
+      - MONGO_DATABASE=mongodb://mongodb/chatdb
+    ports:
+      - "8080:8080"
+    links:
+      - db
+    depends_on:
+      - db
+    tty: true
+
+  db:
+    image: mongo:latest
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    volumes: 
+      - ./db:/data/db
+    ports:
+      - 27017:27017
+    command:
+      - mongod
+    tty: true
