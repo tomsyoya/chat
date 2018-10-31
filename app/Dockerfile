@@ -8,7 +8,9 @@ WORKDIR /usr/src/app
 #node.jsの8系をインストール
 RUN     curl -sL https://rpm.nodesource.com/setup_8.x | bash -
 RUN     yum -y update && yum clean all
-RUN     yum install -y gcc gcc-c++ nodejs
+RUN     yum install -y gcc gcc-c++ nodejs && rm -rf /var/cache/yum/*
+RUN     yum clean all
 
 #8080番ポート開放
 EXPOSE  8080
+CMD     node index.js
