@@ -26,3 +26,4 @@ services:
       - 27017:27017
     command:
       - mongod
+    tty: true
